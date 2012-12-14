@@ -1,4 +1,4 @@
-Gradle VPN Plugin
+Gradle VPN Plugin [![Build Status](https://buildhive.cloudbees.com/job/joemccall86/job/gradle-vpn-plugin/badge/icon)](https://buildhive.cloudbees.com/job/joemccall86/job/gradle-vpn-plugin/)
 =================
 
 A plugin that assists in building in an environment where the shared repo is 
