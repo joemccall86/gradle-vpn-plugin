@@ -1,5 +1,3 @@
-import org.gradle.api.tasks.wrapper.Wrapper.PathBase
-
 apply plugin: 'groovy'
 
 group = 'net.ll86'
@@ -24,8 +22,6 @@ buildscript {
 
 task wrapper(type: Wrapper) {
     gradleVersion = '1.3'
-    archiveBase = PathBase.PROJECT
-    distributionBase = PathBase.PROJECT
 }
 
 // vim:ft=groovy:tw=0
