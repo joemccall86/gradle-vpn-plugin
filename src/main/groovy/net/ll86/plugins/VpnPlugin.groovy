@@ -1,4 +1,4 @@
-package com.github
+package net.ll86.plugins
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project

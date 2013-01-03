@@ -2,8 +2,8 @@ import spock.lang.*
 import org.gradle.api.*
 import org.gradle.api.plugins.*
 import org.gradle.testfixtures.ProjectBuilder
-import com.github.VpnPlugin
-import com.github.VpnPluginExtension
+import net.ll86.plugins.VpnPlugin
+import net.ll86.plugins.VpnPluginExtension
 
 class VpnPluginSpec extends Specification {
 

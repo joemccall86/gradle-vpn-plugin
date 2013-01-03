@@ -1,6 +1,6 @@
 apply plugin: 'groovy'
 
-group = 'com.github'
+group = 'net.ll86'
 version = '0.1-SNAPSHOT'
 
 repositories {
@@ -17,10 +17,6 @@ dependencies {
 buildscript {
     repositories {
         mavenCentral()
-    }
-
-    dependencies {
-        classpath 'junit:junit:4.11'
     }
 }
 
