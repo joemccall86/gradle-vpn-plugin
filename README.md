@@ -38,6 +38,10 @@ When the above code is run, it will behave the following way:
 * If vpn.baseHost is pingable, gradle will behave as default
 * If vpn.baseHost is not pingable, gradle will operate in offline mode
 
+Note that due to a chicken/egg problem, the VPN plugin can't really help you 
+with repositories in the buildscript section of your project. It can only help
+with compile dependencies.
+
 TODO
 ---
 There could possibly be vpn.fallbackUrl, but I'm not sure how to set that up 
