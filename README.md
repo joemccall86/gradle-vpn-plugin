@@ -14,9 +14,6 @@ The plugin can be configured with the following parameters:
   are to be resolved.
 * vpn.pingTimeout - the timeout in msec to wait for a ICMP reply
 
-Note that this plugin is still in early development and does not yet work. If
-you're interested in contributing feel free to fork and make pull requests.
-
 Example:
 <pre><code>
 // build.gradle
@@ -37,3 +34,12 @@ repositories {
 
 </code></pre>
 
+When the above code is run, it will behave the following way:
+* If vpn.baseHost is pingable, gradle will behave as default
+* If vpn.baseHost is not pingable, gradle will operate in offline mode
+
+TODO
+---
+There could possibly be vpn.fallbackUrl, but I'm not sure how to set that up 
+because it seems like the repositories get resolved *after* the ping command 
+could be run.
