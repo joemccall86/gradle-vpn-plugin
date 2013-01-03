@@ -3,62 +3,30 @@ import org.gradle.api.*
 import org.gradle.api.plugins.*
 import org.gradle.testfixtures.ProjectBuilder
 import com.github.VpnPlugin
+import com.github.VpnPluginExtension
 
 class VpnPluginSpec extends Specification {
 
     Project project = ProjectBuilder.builder().build()
 
-    def setup() {
-        project.vpnBaseUrl = 'localhost'
-    }
-
-    def "the vpnUrl property is created"() {
+    def "the project extension is properly applied"() {
         expect:
-        !project.hasProperty('vpnUrl')
+        !project.extensions.findByType(VpnPluginExtension.class)
 
         when:
         project.apply plugin: VpnPlugin
 
         then:
-        project.hasProperty('vpnUrl')
+        project.extensions.findByType(VpnPluginExtension.class)
     }
 
-    def "the vpnUrl points to the right host when vpnBaseUrl is reachable"() {
-        setup:
-        project.vpnBaseUrl     = 'localhost'
-        project.vpnFallbackUrl = 'baseUrl.com'
+    // We can't really do any further testing at this point because the
+    // project cannot be evaluated inside of a unit testing environment. We can
+    // make sure that the project extension has the right value for the
+    // resolvedUri however. We just can't ensure that it's ready properly by
+    // the repositories.
 
-        when:
-        project.apply plugin: VpnPlugin
-        
-        then:
-        project.vpnUrl == 'localhost'
-    }
-
-    def "the vpnUrl points to the right host when vpnBaseUrl is unreachable"() {
-        setup:
-        project.vpnBaseUrl     = '255.255.255.0'
-        project.vpnFallbackUrl = 'baseUrl.com'
-
-        when:
-        project.apply plugin: VpnPlugin
-        
-        then:
-        project.vpnUrl == 'baseUrl.com'
-    }
-
-    def "the project is in offline mode when vpnBaseUrl is unreachable"() {
-        setup:
-        project.vpnBaseUrl = '255.255.255.0'
-
-        expect:
-        !project.gradle.startParameter.offline
-
-        when:
-        project.apply plugin: VpnPlugin
-
-        then:
-        project.gradle.startParameter.offline
-    }
+    // If you're here looking for usage see the examples directory in the root
+    // project.
 }
 

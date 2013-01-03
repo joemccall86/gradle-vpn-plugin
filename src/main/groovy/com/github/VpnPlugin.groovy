@@ -5,26 +5,30 @@ import org.gradle.api.Project
 
 class VpnPlugin implements Plugin<Project> {
 
+    private vpnStatusDetermined = false
+
     @Override
     void apply(Project project) {
 
-        def vpnBaseUrl     = project.vpnBaseUrl
-        def vpnPingTimeout = project.hasProperty('vpnPingTimeout')?project.vpnPingTimeout:3000
+        project.extensions.create('vpn', VpnPluginExtension)
 
-        if (!project.gradle.startParameter.offline) {
-            if (InetAddress.getByName(vpnBaseUrl).isReachable(vpnPingTimeout)) {
-                project.logger.info 'Found VPN Connection'
-                project.vpnUrl = vpnBaseUrl
+        if (project.gradle.startParameter.offline) {
+            vpnStatusDetermined = true
+        }
 
-            } else {
-                project.logger.info 'No VPN connection'
-                if (project.hasProperty('vpnFallbackUrl')) {
-                    project.logger.info "Setting vpnUrl to ${project.vpnFallbackUrl}"
-                    project.vpnUrl = project.vpnFallbackUrl
-                } else {
-                    project.logger.info 'Defaulting to offline build'
-                    project.vpnUrl = vpnBaseUrl
-                    project.gradle.startParameter.offline = true
+        project.configurations.each {
+            it.incoming.beforeResolve {
+                if (!vpnStatusDetermined) {
+                    def baseHost = project.vpn.baseHost
+                    def pingTimeout = project.vpn.pingTimeout
+                    if (InetAddress.getByName(baseHost).isReachable(pingTimeout)) {
+                        project.logger.info 'Found VPN connection'
+                    } else {
+                        project.gradle.startParameter.offline = true
+                        project.logger.info 'VPN connection not found, defaulting to offline build'
+                    }
+
+                    vpnStatusDetermined = true
                 }
             }
         }
