@@ -6,17 +6,25 @@ behind a VPN.
 
 This plugin is very simple. It will try to ping a server before any artifacts 
 are checked. If that server cannot be pinged, gradle.startParameter.offline will
-be set to true if vpnFallbackUrl is not set. The following options are
-available for configuring:
+be set to true.
 
-* vpnBaseUrl - the URL to try and ping to determine whether or not the host is
-  connected to the VPN
-* vpnFallbackUrl - if present, the public repository to use when the host is not
-  connected to the VPN. if not present, gradle.startParameter.offline will be 
-  set.
-* vpnPingTimeout - the timeout in msec to wait for a ICMP reply
+The plugin can be configured with the following parameters:
 
-When you apply the plugin, the following variable will be available to use in
-your repositories:
+* vpn.baseUrl - the URL to to ping when configurations incoming dependencies
+  are to be resolved.
+* vpn.pingTimeout - the timeout in msec to wait for a ICMP reply
 
-* vpnUrl - the URL to use for your repositories
+Example:
+<pre><code>
+// build.gradle
+
+apply plugin: VpnPlugin
+vpn.baseHost = '192.168.40.21'
+vpn.pingTimeout = 3000
+
+repositories {
+    maven { url "http://${vpn.baseHost}:8081/artifactory/repo" }
+}
+
+</code></pre>
+
