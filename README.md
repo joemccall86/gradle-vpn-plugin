@@ -14,11 +14,20 @@ The plugin can be configured with the following parameters:
   are to be resolved.
 * vpn.pingTimeout - the timeout in msec to wait for a ICMP reply
 
+Note that this plugin is still in early development and does not yet work. If
+you're interested in contributing feel free to fork and make pull requests.
+
 Example:
 <pre><code>
 // build.gradle
 
-apply plugin: VpnPlugin
+buildscript {
+    dependencies {
+        classpath 'net.ll86.plugins:gradle-vpn-plugin:0.1-SNAPSHOT'
+    }
+}
+
+apply plugin: 'vpn'
 vpn.baseHost = '192.168.40.21'
 vpn.pingTimeout = 3000
 
