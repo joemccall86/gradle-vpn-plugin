@@ -25,8 +25,10 @@ buildscript {
 }
 
 apply plugin: 'vpn'
-vpn.baseHost = '192.168.40.21'
-vpn.pingTimeout = 3000
+vpn {
+    baseHost = '192.168.40.21'
+    pingTimeout = 3000
+}
 
 repositories {
     maven { url "http://${vpn.baseHost}:8081/artifactory/repo" }
