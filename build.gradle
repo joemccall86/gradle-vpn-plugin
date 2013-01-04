@@ -1,6 +1,17 @@
 apply plugin: 'groovy'
+apply plugin: 'nexus'
 
-group = 'net.ll86'
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.gradle.api.plugins:gradle-nexus-plugin:0.2'
+    }
+}
+
+group = 'net.ll86.plugins'
 version = '0.1-SNAPSHOT'
 
 repositories {
