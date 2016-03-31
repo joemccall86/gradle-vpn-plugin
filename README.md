@@ -43,6 +43,9 @@ When the above code is run, it will behave the following way:
 Note that due to a chicken/egg problem, the VPN plugin can't really help you 
 with repositories in the buildscript section of your project. It can only help
 with compile dependencies.
+UPDATE or you have to put plugin jar file into project and reference as 
+
+    classpath files(gradle/gradle-vpn-plugin.jar)
 
 TODO
 ---
